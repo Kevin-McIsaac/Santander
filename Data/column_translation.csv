@@ -1,0 +1,371 @@
+ID
+var3
+var 15
+var entity amount last 16
+var option amount 39 commercial ultima1
+option amount var39 commercial ultima3
+option amount var40 commercial ultima1
+option amount var40 commercial ultima3
+var40 amount effective option ultima1
+var40 amount effective option ultima3
+var40 option amount ultima1
+option amount var41 commercial ultima1
+option amount var41 commercial ultima3
+var41 amount effective option ultima1
+var41 amount effective option ultima3
+var41 option amount ultima1
+var39 amount effective option ultima1
+var39 amount effective option ultima3
+var39 option amount ultima1
+salt amount var16 ultima1
+var1 indicator 0
+var1 indicator
+var2 indicator 0
+var2 indicator
+var5 indicator 0
+var5 indicator
+var6 indicator 0
+var6 indicator
+var8 indicator 0
+var8 indicator
+Var12 indicator 0
+Var12 indicator
+Var13 indicator 0
+short Var13 indicator 0
+Var13 short indicator
+Var13 indicator Long 0
+Long Var13 indicator
+Var13 indicator means 0
+Var13 indicator means
+Var13 indicator
+var14 indicator 0
+var14 indicator
+var17 indicator 0
+var17 indicator
+var18 indicator 0
+var18 indicator
+var19 indicator
+var20 indicator 0
+var20 indicator
+var24 indicator 0
+var24 indicator
+var25 indicator cte
+var26 indicator 0
+var26 indicator cte
+var26 indicator
+var25 indicator 0
+var25 indicator
+var27 indicator 0
+var28 indicator 0
+var28 indicator
+var27 indicator
+var29 indicator 0
+var29 indicator
+var30 indicator 0
+var30 indicator
+var31 indicator 0
+var31 indicator
+var32 indicator cte
+var32 indicator 0
+var32 indicator
+var33 indicator 0
+var33 indicator
+var34 indicator 0
+var34 indicator
+var37 indicator cte
+var37 indicator 0
+var37 indicator
+var39 indicator 0
+var40 indicator 0
+var40 indicator
+var41 indicator 0
+var41 indicator
+var39 indicator
+var44 indicator 0
+var44 indicator
+var46 indicator 0
+var46 indicator
+var1 number 0
+number var1
+number var4
+var5 number 0
+number var5
+var6 number 0
+number var6
+var8 number 0
+number var8
+Var12 number 0
+number Var12
+Var13 number 0
+Var13 short number 0
+short number Var13
+Long Var13 number 0
+number Var13 long
+Var13 average number 0
+average number Var13
+number Var13
+var14 number 0
+number var14
+var17 number 0
+number var17
+var18 number 0
+number var18
+var20 number 0
+number var20
+var24 number 0
+number var24
+var26 number 0
+number var26
+var25 number 0
+number var25
+Option No. var40 hace2
+Option No. var40 hace3
+Option No. var40 ultima1
+Option No. var40 ultima3
+Option No. var41 hace2
+Option No. var41 hace3
+Option No. var41 ultima1
+Option No. var41 ultima3
+Option No. var39 hace2
+Option No. var39 hace3
+Option No. var39 ultima1
+Option No. var39 ultima3
+var27 number 0
+var28 number 0
+number var28
+number var27
+var29 number 0
+number var29
+var30 number 0
+number var30
+var31 number 0
+number var31
+var32 number 0
+number var32
+var33 number 0
+number var33
+var34 number 0
+number var34
+number var35
+var37 average number ultima2
+var37 number 0
+number var37
+var39 number 0
+var40 number 0
+number var40
+var41 number 0
+number var41
+number var39
+var42 number 0
+number var42
+var44 number 0
+number var44
+var46 number 0
+number var46
+var1 balance
+balance var5
+balance var6
+balance var8
+balance Var12
+Var13 balance short
+Var13 balance long
+Var13 balance means
+balance Var13
+balance var14
+balance var17
+balance var18
+balance var20
+balance var24
+balance var26
+balance var25
+balance var28
+balance var27
+balance var29
+balance var30
+balance var31
+balance var32
+balance var33
+balance var34
+balance var37
+balance var40
+balance var41
+balance var42
+balance var44
+balance var46
+var36
+var18 amortization amount delta 1Y3
+var34 amortization amount delta 1Y3
+delta amount aportacion Var13 1Y3
+delta amount aportacion var17 1Y3
+delta amount aportacion var33 1Y3
+delta purchase amount var44 1Y3
+Var13 refund amount delta 1Y3
+var17 refund amount delta 1Y3
+var33 refund amount delta 1Y3
+delta transfer amount var17 in 1Y3
+delta transfer amount var17 out 1Y3
+delta transfer amount var33 in 1Y3
+delta transfer amount var33 out 1Y3
+ventidada delta amount var44 1Y3
+aportacion number Var13 delta 1Y3
+aportacion number var17 delta 1Y3
+aportacion number var33 delta 1Y3
+Delta buys var44 number 1Y3
+delta reimbursement Var13 number 1Y3
+delta reimbursement var17 number 1Y3
+delta reimbursement var33 number 1Y3
+delta transfer number var17 in 1Y3
+delta transfer number var17 out 1Y3
+delta transfer number var33 in 1Y3
+delta transfer number var33 out 1Y3
+ventidada number var44 delta 1Y3
+var18 repayment amount hace3
+var18 repayment amount ultima1
+var34 repayment amount hace3
+var34 repayment amount ultima1
+aportacion amount Var13 hace3
+aportacion amount Var13 ultima1
+aportacion amount var17 hace3
+aportacion amount var17 ultima1
+aportacion amount var33 hace3
+aportacion amount var33 ultima1
+var7 amount issued ultima1
+var7 amount received ultima1
+purchase amount var44 hace3
+purchase amount var44 ultima1
+Var13 refund amount hace3
+Var13 refund amount ultima1
+var17 refund amount hace3
+var17 refund amount ultima1
+var33 refund amount hace3
+var33 refund amount ultima1
+var43 amount issued ultima1
+trans var37 amount ultima1
+var17 transfer amount in hace3
+var17 transfer amount in ultima1
+transfer amount var17 out hace3
+transfer amount var17 out ultima1
+var33 transfer amount in hace3
+var33 transfer amount in ultima1
+transfer amount var33 out hace3
+transfer amount var33 out ultima1
+ventidada amount var44 hace3
+ventidada amount var44 ultima1
+var7 indicator issued ultima1
+var7 indicator received ultima1
+var10 indicator ultima1
+var10cte indicator ultima1
+var9 indicator cte ultima1
+var9 indicator ultima1
+var43 indicator issued ultima1
+var43 indicator received ultima1
+var21
+var2 number 0 ultima1
+var2 number ultima1
+aportacion number Var13 hace3
+aportacion number Var13 ultima1
+aportacion number var17 hace3
+aportacion number var17 ultima1
+aportacion number var33 hace3
+aportacion number var33 ultima1
+var7 number issued ultima1
+var7 number received ultima1
+purchase var44 number hace3
+purchase var44 number ultima1
+var16 entity number ultima1
+var22 number hace2
+var22 number hace3
+var22 number ultima1
+var22 number ultima3
+average number var22 ultima3
+average number var45 ultima3
+number var5 months ultima3
+number var8 months ultima3
+number Var12 months ultima3
+number Var13 months short ultima3
+number Var13 months long ultima3
+Var13 months average number ultima3
+number var17 months ultima3
+number var29 months ultima3
+number var33 months ultima3
+var39 months vig number ultima3
+number var44 months ultima3
+Option No. ultima1 commercial var39
+Option No. ultima3 commercial var39
+Option No. var40 commercial ultima1
+Option No. ultima3 commercial var40
+Option No. var40 cash ultima1
+Option No. var40 cash ultima3
+Option No. ultima1 commercial var41
+Option No. ultima3 commercial var41
+Option No. var41 cash ultima1
+Option No. var41 cash ultima3
+Option No. var39 cash ultima1
+Option No. var39 cash ultima3
+reimbursement Var13 number hace3
+reimbursement Var13 number ultima1
+reimbursement var17 number hace3
+reimbursement var17 number ultima1
+reimbursement var33 number hace3
+reimbursement var33 number ultima1
+salt var16 number ultima1
+var43 number issued ultima1
+var43 number received ultima1
+var11 transfer number ultima1
+var17 transfer number in hace3
+var17 transfer number in ultima1
+var17 number transfer out hace3
+var17 number transfer out ultima1
+var33 transfer number in hace3
+var33 transfer number in ultima1
+var33 number transfer out hace3
+var33 number transfer out ultima1
+ventidada number var44 hace3
+ventidada number var44 ultima1
+var45 number hace2
+var45 number hace3
+var45 number ultima1
+var45 number ultima3
+var2 balance ultima1
+var5 average balance hace2
+var5 average balance hace3
+var5 average balance ultima1
+var5 average balance ultima3
+var8 average balance hace2
+var8 average balance hace3
+var8 average balance ultima1
+var8 average balance ultima3
+Var12 average balance hace2
+Var12 average balance hace3
+Var12 average balance ultima1
+Var12 average balance ultima3
+average balance short Var13 hace2
+average balance short Var13 hace3
+average balance short Var13 ultima1
+average balance short Var13 ultima3
+Var13 average balance long hace2
+Var13 average balance long hace3
+Var13 average balance long ultima1
+Var13 average balance long ultima3
+Var13 average balance means hace2
+Var13 average balance means hace3
+Var13 average balance means ultima1
+Var13 average balance means ultima3
+var17 average balance hace2
+var17 average balance hace3
+var17 average balance ultima1
+var17 average balance ultima3
+var29 average balance hace2
+var29 average balance hace3
+var29 average balance ultima1
+var29 average balance ultima3
+var33 average balance hace2
+var33 average balance hace3
+var33 average balance ultima1
+var33 average balance ultima3
+var44 average balance hace2
+var44 average balance hace3
+var44 average balance ultima1
+var44 average balance ultima3
+var38
+TARGET

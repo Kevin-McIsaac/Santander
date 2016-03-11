@@ -1,5 +1,6 @@
 import os as os
 import graphlab as gl
+import matplotlib.pyplot as plt
 
 
 def pivot(data, row, col, item, agg=gl.aggregate.COUNT("id")):
@@ -103,3 +104,40 @@ def frequency(sa):
     sf2['Freqency'] = sf2['Freqency']/len(sa)
     sf2['Freqency'] = sf2['Freqency'].apply(lambda x: "{:2.2%}".format(x))
     return sf2
+
+
+def plot_metric(model):
+    '''Plot training and validation meterics'''
+    
+    data=model['progress']
+    fig = plt.figure()
+    title = "{:s}: {:4.4f}".format(model['metric'], model['validation_auc'])
+    fig.suptitle(title, fontsize=14, fontweight='bold')
+    plt.plot(data['Iteration'], data['Training-auc'],   'b.', label=['Train'])
+    plt.plot(data['Iteration'], data['Validation-auc'], 'g^', label=['Validate'])
+    plt.legend()
+#    plt.hlines(model['validation_auc'], 0, data['Iteration'][-1])
+    
+    return plt
+
+  
+def plot_roc(model, data):
+    '''Plot ROC'''
+    
+    roc = model.evaluate(data, metric='roc_curve')['roc_curve']
+    fig = plt.figure()
+    title = "{:s}: {:4.4f}".format(model['metric'], model['validation_auc'])
+    fig.suptitle(title, fontsize=14, fontweight='bold')
+    plt.plot(roc['fpr'], roc['tpr'])
+    
+    return fig
+  
+
+def make_submission(model, data, file):
+    '''Create a submission in Submissions/file in the correct format'''
+    
+    tmp = gl.SFrame({'ID': data['ID']})
+    tmp['TARGET'] = model.predict(data, output_type='probability')
+    tmp['ID', 'TARGET'].save('Submissions/'+ file + '.csv')
+    
+    return

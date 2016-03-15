@@ -21,9 +21,10 @@ def delete_redundant_columns(train_data,test_data):
     '''Remove columns that are constant or duplicates'''
   
     #These are calculated in the data discovery notebook
-    constant_cols = ['var2 indicator 0', 'var2 indicator', 'var27 indicator 0', 'var28 indicator 0', 'var28 indicator', 'var27 indicator', 'var41 indicator', 'var46 indicator 0', 'var46 indicator', 'var27 number 0', 'var28 number 0', 'var28 number', 'var27 number', 'var41 number', 'var46 number 0', 'var46 number', 'var28 balance', 'var27 balance', 'var41 balance', 'var46 balance', 'var18 repayment amount hace3', 'var34 repayment amount hace3', 'var13 refund amount hace3', 'var33 refund amount hace3', 'var17 transfer amount out hace3', 'var33 transfer amount  out hace3', 'var2 number 0 ultima1', 'var2 number ultima1', 'var13 reimbursement number hace3', 'var33 reimbursement number hace3', 'var17 number transfer out hace3', 'var33 number transfer out hace3', 'var2 balance ultima1', 'var13 average balance means hace3']
+    constant_cols = [ col for col in train_data.column_names() if train_data[col].var() == 0]
     duplicate_cols = ['var29 indicator 0', 'var29 indicator', 'var13 indicator means', 'var18 indicator', 'var26 indicator', 'var25 indicator', 'var32 indicator', 'var34 indicator', 'var37 indicator', 'var39 indicator', 'var29 number 0', 'var29 number', 'var13 average number', 'var18 number', 'var26 number', 'var25 number', 'var32 number', 'var34 number', 'var37 number', 'var39 number', 'var29 balance', 'var13 average balance means ultima1', 'var33 delta contribution amount 1Y3', 'var13 delta reimbursement amount 1Y3', 'var17 delta reimbursement amount 1Y3', 'var33 delta reimbursement amount 1Y3', 'var17 delta transfer number in 1Y3', 'var17 delta transfer number out 1Y3', 'var33 delta transfer number in 1Y3', 'var33 delta transfer number out 1Y3']
-    drop_col = set(constant_cols + duplicate_cols)
+    low_variance_cols = ['var1 number', 'var13 average number 0', 'var13 balance means', 'var17 average balance hace3', 'var17 average balance ultima1', 'var17 balance', 'var17 reimbursement number hace3', 'var17 transfer number in hace3', 'var18 balance', 'var24 balance', 'var33 average balance ultima1', 'var33 balance', 'var33 number transfer out ultima1', 'var33 reimbursement number ultima1', 'var39 option number cash ultima3', 'var40 number 0', 'var41 amount effective option ultima1', 'var41 amount effective option ultima3', 'var41 option amount ultima1', 'var41 option number cash ultima1', 'var41 option number hace2', 'var45 number ultima3']
+    drop_col = set(constant_cols + duplicate_cols + low_variance_cols)
   
     print len(drop_col) ,"constant or duplicate columns removed"
     train_data.remove_columns(drop_col);
@@ -62,7 +63,7 @@ def convert_categorical_features(train_data,test_data):
     return train_data, test_data         
   
   
-def prepare_data(categorical=True, clean=True):
+def prepare_data(redundant=True, categorical=True, clean=True):
     '''Load and prepare data, return as train and test tupple'''
 
 # new training and testing data sets
@@ -74,7 +75,8 @@ def prepare_data(categorical=True, clean=True):
     print len(train_data.column_names()) - 1, "raw features"
 
     train_data, test_data = translate_columns(train_data, test_data)
-    train_data, test_data = delete_redundant_columns(train_data, test_data)
+    if redundant:
+        train_data, test_data = delete_redundant_columns(train_data, test_data)
     if clean:
         train_data, test_data = clean_data(train_data,test_data)
     if categorical:

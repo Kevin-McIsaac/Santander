@@ -126,7 +126,7 @@ def plot_roc(model, data):
     
     roc = model.evaluate(data, metric='roc_curve')['roc_curve']
     fig = plt.figure()
-    title = "{:s}: {:4.4f}".format(model['metric'], model['validation_auc'])
+    title = "{:s}: {:4.6f}".format(model['metric'], model['validation_auc'])
     fig.suptitle(title, fontsize=14, fontweight='bold')
     plt.plot(roc['fpr'], roc['tpr'])
     
@@ -141,3 +141,42 @@ def make_submission(model, data, file):
     tmp['ID', 'TARGET'].save('Submissions/'+ file + '.csv')
     
     return
+
+
+import numpy as np
+
+from sklearn.preprocessing import normalize
+from sklearn.decomposition import PCA
+
+def PCA_sf(sf, n_components=None):
+    '''Compute the PCA tranform on a SFrame'''
+   
+    np = sf.to_numpy()
+
+    np = normalize(np, axis=0)
+    pca = PCA(n_components=n_components, copy=True)
+    np = pca.fit_transform(np)
+    return np, pca.explained_variance_ratio_
+
+
+
+def cov_sa(sa1, sa2):
+    '''covariance'''
+    n = float(len(sa1))
+    
+    sum1 = sa1.sum()
+    sum2 = sa2.sum()
+    sum12 = (sa1*sa2).sum()
+    
+    return (sum12 - sum1*sum2 / n) / n  
+
+
+def pearsonr_sa(sa1, sa2):
+    '''Pearson correlation of two SArrays'''
+    
+    std1=sa1.std()
+    std2=sa2.std()
+    if std1 == 0 or std2 == 0:
+        return 0
+    
+    return cov_sa(sa1, sa2)/(std1*std2)

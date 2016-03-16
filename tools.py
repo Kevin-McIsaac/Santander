@@ -180,3 +180,22 @@ def pearsonr_sa(sa1, sa2):
         return 0
     
     return cov_sa(sa1, sa2)/(std1*std2)
+
+def stratified_split(data, target, fraction, seed=None):
+    
+    train = gl.SFrame()
+    test = gl.SFrame()
+    classes = data[target].unique()
+    
+    for i, c in enumerate(classes):
+        data_c=data[data[target] == c]
+        test_c, train_c = data_c.random_split(fraction, seed)
+
+        test = test.append(test_c)
+        train = train.append(train_c)
+
+    #shuffle to mix up order of classes
+    test = gl.cross_validation.shuffle(test)
+    train = gl.cross_validation.shuffle(train)
+        
+    return test, train

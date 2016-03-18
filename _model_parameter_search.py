@@ -9,9 +9,13 @@ from graphlab import SArray as _SArray
 from graphlab.deploy import required_packages as _required_packages
 from graphlab.deploy import map_job as _map_job
 from graphlab.connect import _get_metric_tracker
-from _model_parameter_search_evaluators import default_evaluator as _default_evaluator
+from ._model_parameter_search_evaluators import default_evaluator as _default_evaluator
 import logging
-
+from os import listdir
+from ipywidgets import IntProgress
+from IPython.display import display
+from os import listdir
+import math 
 
 _DATA_DOCSTRING = """
     data : KFold | str | tuple | iterable of tuples
@@ -387,6 +391,7 @@ def _check_if_sklearn_factory(sklearn_module, params):
                 'be a tuple containing features and target, i.e. (X, y). '
                 'Instead training_set was a %s.' %
                 type(training_set))
+
         for k, v in params.iteritems():
             if k not in allowed_params:
                 raise ValueError(
@@ -541,7 +546,8 @@ class ModelSearchJob(object):
                 yield l[i:i+n]
 
         # Tuning parameter for dividing jobs into batches
-        batch_size = max(10, len(parameter_sets) / 3)
+        batch_size = max(10, int(math.ceil(len(parameter_sets) / 3.0)))
+
         parameter_batches = [c for c in chunks(parameter_sets, batch_size)]
 
         # Construct jobs
@@ -567,26 +573,54 @@ class ModelSearchJob(object):
         """
         Get the status of all jobs launched for this model search.
         """
-        status = {'Completed': 0,
+        status = {'Total':0, 
+                  'Completed': 0,
                   'Running'  : 0,
                   'Failed'   : 0,
                   'Pending'  : 0,
                   'Canceled' : 0}
         for j in self.jobs:
             job_status = j.get_status(_silent=True)
-
+            status['Total'] += len(j._stages[0])
+            
             if job_status == 'Completed':
                 result = j.get_results()
 
                 # Increment overall status with the map_job's status
                 for k, v in result['status'].iteritems():
                     status[k] += v
+            elif job_status == 'Running':
+                # KMc - number of completed jobs is the number of output files less one on the basis that 
+                # either one task is still actively writing to this output or the output file is the completion task. 
+                status['Completed'] += max(0, len(listdir(j._exec_dir + "/output"))-1)
+                status['Running'] += 1
+                status['Pending'] +=  max(0,len(j._stages[0]) - max(0, len(listdir(j._exec_dir + "/output"))-1) - 1)
             else:
                 # Otherwise assume all tasks have the same status as the job
                 status[job_status] += len(j._stages[0])
-
+                
         return status
+    
 
+    def progress_bar(self):
+        '''Display a status bar showing how many tasks are completed'''
+
+        status=self.get_status()
+        f = IntProgress(min=0, max=status['Total'], bar_style='success')
+        f.value = status['Total'] - status['Pending'] - status['Running']
+        f.description =  "{:1.0f} tasks left ".format(status['Pending']+status['Running'])
+        display(f)
+
+        while f.value <  status['Total']:
+            status = self.get_status()
+            f.value = status['Total'] - status['Pending'] - status['Running']
+            f.description =  "{:1.0f} tasks left ".format(status['Pending']+status['Running'])
+            if status['Failed'] > 0:
+                f.bar_style = 'warning'
+            _time.sleep(1)
+
+        return status 
+    
     def get_metrics(self):
         """
         Retrieves the metrics for all of the jobs.
@@ -863,7 +897,7 @@ class ModelSearchJob(object):
         Print a summary of the current progress of the jobs created for this
         search.
         """
-        print self.__repr__()
+        print(self.__repr__())
 
 
 
@@ -906,8 +940,6 @@ def _create_model_search(datasets,
     model_id = 0
     for model_params in model_parameters:
 
-        model_factory = _check_if_sklearn_factory(model_factory, model_params)
-
         for fold_id in range(num_folds):
             metadata = {'model_id': model_id}
             if include_fold_id:
@@ -915,7 +947,7 @@ def _create_model_search(datasets,
             model_id += 1
 
             params.append({
-                'model_factory': model_factory,
+                'model_factory': _check_if_sklearn_factory(model_factory, model_params),
                 'model_parameters': model_params,
                 'folds': folds,
                 'evaluator': evaluator,

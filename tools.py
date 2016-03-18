@@ -199,3 +199,26 @@ def stratified_split(data, target, fraction, seed=None):
     train = gl.cross_validation.shuffle(train)
         
     return test, train
+
+
+from ipywidgets import IntProgress
+from IPython.display import display
+from time import sleep
+from os import listdir
+
+def progress_bar(job):
+    '''Display a status bar showing how many tasks are completed'''
+    
+    status=job.get_status()
+    f = IntProgress(min=0, max=status['Total'], bar_style='success')
+    f.value = status['Total'] - status['Pending'] - status['Running']
+    f.description =  "{:1.0f} tasks left ".format(status['Pending']+status['Running'])
+    display(f)
+    
+    while f.value <  status['Total']:
+        status=job.get_status()
+        f.value = status['Total'] - status['Pending'] - status['Running']
+        f.description =  "{:1.0f} tasks left ".format(status['Pending']+status['Running'])
+        if status['Failed'] > 0:
+            f.bar_style='warning'
+        sleep(1)

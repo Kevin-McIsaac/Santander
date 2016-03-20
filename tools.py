@@ -126,7 +126,10 @@ def plot_roc(model, data):
     
     roc = model.evaluate(data, metric='roc_curve')['roc_curve']
     fig = plt.figure()
-    title = "{:s}: {:4.6f}".format(model['metric'], model['validation_auc'])
+    try:
+        title = "{:s}: {:4.6f}".format(model['metric'], model['validation_auc'])
+    except:
+        title = "ROC Curve"
     fig.suptitle(title, fontsize=14, fontweight='bold')
     plt.plot(roc['fpr'], roc['tpr'])
     

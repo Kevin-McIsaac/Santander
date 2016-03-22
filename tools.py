@@ -212,16 +212,49 @@ from os import listdir
 def progress_bar(job):
     '''Display a status bar showing how many tasks are completed'''
     
-    status=job.get_status()
+    status=get_status(job)
     f = IntProgress(min=0, max=status['Total'], bar_style='success')
     f.value = status['Total'] - status['Pending'] - status['Running']
     f.description =  "{:1.0f} tasks left ".format(status['Pending']+status['Running'])
     display(f)
     
     while f.value <  status['Total']:
-        status=job.get_status()
+        status=get_status(job)
         f.value = status['Total'] - status['Pending'] - status['Running']
         f.description =  "{:1.0f} tasks left ".format(status['Pending']+status['Running'])
         if status['Failed'] > 0:
             f.bar_style='warning'
         sleep(1)
+
+        
+def get_status(job):
+        """
+        Get the status of all jobs launched for this model search.
+        """
+        status = {'Total':0, 
+                  'Completed': 0,
+                  'Running'  : 0,
+                  'Failed'   : 0,
+                  'Pending'  : 0,
+                  'Canceled' : 0}
+        for j in job.jobs:
+            job_status = j.get_status(_silent=True)
+            status['Total'] += len(j._stages[0])
+            
+            if job_status == 'Completed':
+                result = j.get_results()
+
+                # Increment overall status with the map_job's status
+                for k, v in result['status'].iteritems():
+                    status[k] += v
+            elif job_status == 'Running':
+                # KMc - number of completed jobs is the number of output files less one on the basis that 
+                # either one task is still actively writing to this output or the output file is the completion task. 
+                status['Completed'] += max(0, len(listdir(j._exec_dir + "/output"))-1)
+                status['Running'] += 1
+                status['Pending'] +=  max(0,len(j._stages[0]) - max(0, len(listdir(j._exec_dir + "/output"))-1) - 1)
+            else:
+                # Otherwise assume all tasks have the same status as the job
+                status[job_status] += len(j._stages[0])
+                
+        return status
